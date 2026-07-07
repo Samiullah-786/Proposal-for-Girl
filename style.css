@@ -1,0 +1,298 @@
+:root {
+    --bg-1: #ffd9e6;
+    --bg-2: #ff9fbf;
+    --card: #fffafb;
+    --ink: #7a1f3d;
+    --accent: #ff4c7d;
+    --accent-2: #ff8fb3;
+    --muted: #a9798a;
+    --track: #ffdbe6;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    height: 100%;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at 30% 0%, var(--bg-1), var(--bg-2) 70%);
+    position: relative;
+    overflow: hidden;
+}
+
+/* ================= ambient background hearts ================= */
+#ambient {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.ambient-heart {
+    position: absolute;
+    bottom: -40px;
+    opacity: 0;
+    animation-name: ambientFloat;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes ambientFloat {
+    0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+
+    8% {
+        opacity: .55;
+    }
+
+    100% {
+        transform: translateY(-115vh) translateX(var(--drift, 20px)) rotate(20deg);
+        opacity: 0;
+    }
+}
+
+/* ================= burst hearts (on tap) ================= */
+#burstLayer {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.burst-heart {
+    position: absolute;
+    bottom: 10%;
+    opacity: 0;
+    animation-name: burstUp;
+    animation-timing-function: cubic-bezier(.17, .67, .32, 1);
+    animation-fill-mode: forwards;
+}
+
+@keyframes burstUp {
+    0% {
+        transform: translate(0, 0) scale(.4) rotate(0deg);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(var(--drift, 0px), -70vh) scale(1) rotate(30deg);
+        opacity: 0;
+    }
+}
+
+/* ================= the "letter" card ================= */
+.stage {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 420px;
+    padding: 24px;
+}
+
+.card {
+    position: relative;
+    background: linear-gradient(180deg, #ffffff, var(--card));
+    border-radius: 26px 26px 26px 26px;
+    padding: 40px 28px 34px;
+    box-shadow: 0 24px 60px rgba(200, 40, 90, .22);
+    text-align: center;
+    display: none;
+    animation: cardIn .4s ease;
+    overflow: hidden;
+}
+
+.card.active {
+    display: block;
+}
+
+@keyframes cardIn {
+    from {
+        opacity: 0;
+        transform: translateY(14px) scale(.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 34px 34px 0;
+    border-color: transparent var(--bg-1) transparent transparent;
+    filter: drop-shadow(-2px 2px 3px rgba(200, 60, 110, .25));
+}
+
+/* progress bar */
+.progress-track {
+    height: 6px;
+    width: 100%;
+    background: var(--track);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 22px;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    border-radius: 6px;
+    transition: width .5s ease;
+}
+
+.sawaal-label {
+    font-size: 12.5px;
+    letter-spacing: 1.5px;
+    color: var(--accent-2);
+    font-weight: 600;
+    margin: 0 0 12px;
+}
+
+.heart-icon {
+    font-size: 44px;
+    margin-bottom: 10px;
+    line-height: 1;
+}
+
+h1.title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 21px;
+    color: var(--ink);
+    margin: 0 0 8px;
+    line-height: 1.35;
+}
+
+p.subtitle {
+    font-family: 'Poppins', sans-serif;
+    font-style: italic;
+    font-size: 12.5px;
+    color: var(--muted);
+    margin: 0 0 24px;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.option {
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: 16px;
+    border: 1.5px solid var(--accent-2);
+    background: #fff;
+    color: var(--ink);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 14.5px;
+    cursor: pointer;
+    transition: background .25s ease, color .25s ease, transform .2s ease, box-shadow .25s ease;
+}
+
+.option:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(255, 80, 130, .18);
+}
+
+.option.selected {
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 10px 22px rgba(255, 60, 120, .35);
+}
+
+/* intro + final CTA button */
+.cta {
+    width: 100%;
+    padding: 16px 20px;
+    border: none;
+    border-radius: 40px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: 0 14px 30px rgba(255, 60, 120, .35);
+    transition: transform .2s ease;
+}
+
+.cta:hover {
+    transform: translateY(-2px);
+}
+
+/* final yes/no row */
+.yn-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.yes-btn {
+    padding: 16px 34px;
+    border: none;
+    border-radius: 40px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: 0 14px 30px rgba(255, 60, 120, .35);
+    transition: transform .25s ease;
+}
+
+.no-btn {
+    padding: 14px 22px;
+    border-radius: 40px;
+    border: 1.5px solid var(--accent-2);
+    background: #fff;
+    color: var(--muted);
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    transition: transform .3s ease, opacity .3s ease;
+}
+
+.no-btn.gone {
+    transform: scale(0);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.final-msg {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--ink);
+    line-height: 1.6;
+    margin: 0 0 26px;
+}

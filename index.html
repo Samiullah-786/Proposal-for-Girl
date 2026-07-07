@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hey Jaan 💌</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght=0,600;0,700;1,600&family=Poppins:ital,wght=0,400;0,500;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <audio id="proposalAudio" src="YAAD HAI NA.mp3" loop prefetch="auto"></audio>
+
+    <div id="ambient"></div>
+    <div id="burstLayer"></div>
+
+    <div class="stage">
+
+        <div class="card active" id="card-intro">
+            <div class="heart-icon">💗</div>
+            <h1 class="title">Hey Jaan 👋</h1>
+            <p class="subtitle">(I have a small surprise for you… but first, a few questions.)</p>
+            <p
+                style="font-family:'Playfair Display',serif;font-weight:700;color:var(--ink);font-size:15.5px;margin:-6px 0 26px;">
+                Ek chhota sa surprise hai tumhare liye… par pehle mujhe kuch sawaal poochne hai. Ready ho?
+            </p>
+            <button class="cta" onclick="startQuiz()">Chalo shuru karte hai 💌</button>
+        </div>
+
+        <div class="card" id="card-quiz">
+            <div class="progress-track">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <p class="sawaal-label" id="sawaalLabel">SAWAAL 1 / 5</p>
+            <h1 class="title" id="qTitle"></h1>
+            <p class="subtitle" id="qSubtitle"></p>
+            <div class="options" id="qOptions"></div>
+        </div>
+
+        <div class="card" id="card-final">
+            <div class="heart-icon">❤️</div>
+            <h1 class="title">Bas ek aakhri sawaal… Kya tum meri zindagi ka sabse khoobsurat hissa banoge/banogi? ❤️😍
+            </h1>
+            <div class="yn-row" style="margin-top:22px;">
+                <button class="yes-btn" id="yesBtn" onclick="sayYes()">Yes 💖</button>
+                <button class="no-btn" id="noBtn" onmouseenter="runAway()" onclick="runAway()">No</button>
+            </div>
+        </div>
+
+        <div class="card" id="card-celebrate">
+            <div class="heart-icon">❤️</div>
+            <p class="final-msg">You said YES! 😻❤️ Thank you for choosing me. Aaj se har khushi tumhare saath. I love
+                you
+                forever! 💍✨</p>
+            <button class="cta" onclick="extraHearts()">Click Me To See More ❤️</button>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
